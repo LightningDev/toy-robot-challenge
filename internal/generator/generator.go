@@ -1,4 +1,4 @@
-package mockup
+package generator
 
 import (
 	"fmt"
@@ -9,30 +9,6 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
-
-func CommandTemplate() []byte {
-	return []byte(`
-package command
-
-import (
-	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
-)
-
-type {{ .CmdName }}Command struct {
-	Name string
-}
-
-func New{{ .CmdName }}Command(args []string) (robot.Command, error) {
-	return PlaceCommand{
-		Name: "{{ .CmdName }}",
-	}, nil
-}
-
-func (c {{ .CmdName }}Command) Execute(r *robot.Robot) error {
-	return nil
-}
-`)
-}
 
 type Template struct {
 	CmdName      string
@@ -55,7 +31,9 @@ func (t *Template) Create() error {
 	}
 	defer commandFile.Close()
 
-	commandTemplate := template.Must(template.New(t.CmdName).Parse(string(CommandTemplate())))
+	commandTemplate := template.Must(template.New(t.CmdName).Funcs(template.FuncMap{
+		"toupper": strings.ToUpper,
+	}).Parse(string(CommandTemplate())))
 
 	t.CmdName = cases.Title(language.English).String(t.CmdName)
 	err = commandTemplate.Execute(commandFile, t)
@@ -64,4 +42,12 @@ func (t *Template) Create() error {
 	}
 
 	return nil
+}
+
+func checkExistingCommandList() bool {
+	if _, err := os.Stat("pkg/command/command_list.go"); os.IsNotExist(err) {
+		return false
+	}
+
+	return true
 }

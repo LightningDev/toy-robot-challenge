@@ -58,7 +58,12 @@ func inputCommand(cmd *cobra.Command, args []string) {
 			fmt.Println("Error reading input:", err)
 			return
 		}
+
 		input = input[:len(input)-1] // Remove the newline character
+		if input == "EXIT" {
+			break
+		}
+
 		command, err := parser.ParseCommand(input)
 
 		if err != nil {
@@ -69,10 +74,6 @@ func inputCommand(cmd *cobra.Command, args []string) {
 		err = robot.Do(command)
 		if err != nil {
 			errors.HandleError(err)
-		}
-
-		if input == "EXIT" {
-			break
 		}
 	}
 }

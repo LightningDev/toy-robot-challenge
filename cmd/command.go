@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/LightningDev/toy-robot-challenge/internal/mockup"
+	"github.com/LightningDev/toy-robot-challenge/internal/generator"
 	"github.com/spf13/cobra"
 )
 
@@ -22,7 +22,7 @@ var commandCmd = &cobra.Command{
 			fmt.Println(err)
 		}
 
-		commandTemplate := &mockup.Template{
+		commandTemplate := &generator.Template{
 			AbsolutePath: wd,
 		}
 
