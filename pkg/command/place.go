@@ -32,14 +32,16 @@ func NewPlaceCommand(args []string) (robot.Command, error) {
 
 func (c PlaceCommand) Execute(r *robot.Robot) error {
 	if !table.IsValidPosition(c.X, c.Y) {
+		r.Active = false || r.Active
 		return &errors.ValidationError{
 			Command: c.Name,
 			Err:     fmt.Errorf("invalid position"),
 		}
 	}
 
-	r.CurrentX = c.X
-	r.CurrentY = c.Y
-	r.Facing = c.Facing
+	r.Position.X = c.X
+	r.Position.Y = c.Y
+	r.Position.Direction = c.Facing
+	r.Active = true
 	return nil
 }

@@ -7,9 +7,8 @@ type Command interface {
 }
 
 type Robot struct {
-	CurrentX int
-	CurrentY int
-	Facing   position.Direction
+	Position position.Position
+	Active   bool
 }
 
 func (r *Robot) Do(command Command) error {

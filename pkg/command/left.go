@@ -1,9 +1,6 @@
 package command
 
 import (
-	"fmt"
-
-	"github.com/LightningDev/toy-robot-challenge/pkg/position"
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
 )
 
@@ -18,8 +15,7 @@ func NewLeftCommand(args []string) (robot.Command, error) {
 }
 
 func (c LeftCommand) Execute(r *robot.Robot) error {
-	newDegree := (r.Facing.Degree() - 90 + 360) % 360
-	r.Facing = position.DegreeToDirection(newDegree)
-	fmt.Println("LEFT: ", r.CurrentX, r.CurrentY, r.Facing.String())
+	r.Position.Rotate(-90) // Clockwise rotation
+
 	return nil
 }

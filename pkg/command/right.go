@@ -1,7 +1,6 @@
 package command
 
 import (
-	"github.com/LightningDev/toy-robot-challenge/pkg/position"
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
 )
 
@@ -16,8 +15,7 @@ func NewRightCommand(args []string) (robot.Command, error) {
 }
 
 func (c RightCommand) Execute(r *robot.Robot) error {
-	newDegree := (r.Facing.Degree() + 90) % 360
-	r.Facing = position.DegreeToDirection(newDegree)
+	r.Position.Rotate(90) // Counter clockwise rotation
 
 	return nil
 }

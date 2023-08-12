@@ -17,6 +17,6 @@ func NewReportCommand(args []string) (robot.Command, error) {
 }
 
 func (c ReportCommand) Execute(r *robot.Robot) error {
-	fmt.Printf("Output: %d,%d,%s\n", r.CurrentX, r.CurrentY, r.Facing.String())
+	fmt.Printf("Output: %s\n", r.Position.String())
 	return nil
 }
