@@ -18,6 +18,13 @@ type PlaceCommand struct {
 }
 
 func NewPlaceCommand(args []string) (robot.Command, error) {
+	if len(args) != 3 {
+		return nil, &errors.ValidationError{
+			Command: "PLACE",
+			Err:     fmt.Errorf("invalid arguments"),
+		}
+	}
+
 	newX, _ := strconv.Atoi(args[0])
 	newY, _ := strconv.Atoi(args[1])
 	facing := position.StrToDirection(args[2])

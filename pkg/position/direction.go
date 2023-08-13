@@ -42,9 +42,9 @@ func DegreeToDirection(degree int) Direction {
 	switch degree {
 	case 0:
 		return NORTH
-	case 90:
-		return SOUTH
 	case 180:
+		return SOUTH
+	case 90:
 		return EAST
 	case 270:
 		return WEST
