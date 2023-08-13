@@ -1,0 +1,9 @@
+{
+  "Commands": [
+    "PLACE",
+    "REPORT",
+    "MOVE",
+    "LEFT",
+    "RIGHT"
+  ]
+}

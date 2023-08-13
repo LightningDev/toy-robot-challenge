@@ -22,7 +22,7 @@ var commandCmd = &cobra.Command{
 			fmt.Println(err)
 		}
 
-		commandTemplate := &generator.Template{
+		commandTemplate := &generator.CmdTemplate{
 			AbsolutePath: wd,
 		}
 
