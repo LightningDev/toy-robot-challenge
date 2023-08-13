@@ -10,26 +10,24 @@ import (
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
 )
 
-func ParseCommand(robotCommand string, robot robot.Robot) (robot.Command, error) {
-	// Regexp pattern for robot command: Command Args[]
-	pattern := `^(?i)([A-Za-z]+)(?:\s+(\S.*))?`
-	regex := regexp.MustCompile(pattern)
+var regex = regexp.MustCompile(`^(?i)([A-Za-z]+)(?:\s+(\S.*))?`)
 
+func ParseCommand(robotCommand string, robot robot.Robot) (robot.Command, error) {
 	// Extract command name and arguments
 	matches := regex.FindStringSubmatch(robotCommand)
 	if matches == nil {
 		return nil, &errors.ValidationError{
 			Command: "EMPTY",
-			Err:     fmt.Errorf("Empty command"),
+			Err:     fmt.Errorf("empty command"),
 		}
 	}
 
 	commandName := strings.ToUpper(matches[1])
-	args := strings.Split(matches[2], ",")
+	args := strings.Split(strings.TrimSpace(matches[2]), ",")
 
 	// Skip if robot is not active
 	if commandName != "PLACE" && !robot.Active {
-		return nil, fmt.Errorf("robot is not active")
+		return nil, fmt.Errorf("please place the robot on the board first")
 	}
 
 	foundCommand, found := command.CommandList[commandName]
