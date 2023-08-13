@@ -41,3 +41,14 @@ func TestExecuteLeftCommand(t *testing.T) {
 		t.Errorf("Expected robot direction to be 'WEST', got: %s", r.Position.Direction)
 	}
 }
+
+func TestGetNameLeftCommand(t *testing.T) {
+	cmd := LeftCommand{
+		Name: "LEFT",
+	}
+
+	name := cmd.GetName()
+	if name != cmd.Name {
+		t.Fatalf("Expected command name is %s but got %s", cmd.Name, name)
+	}
+}

@@ -37,3 +37,14 @@ func TestExecuteReportCommand(t *testing.T) {
 		t.Fatalf("Expected no error but got: %v", err)
 	}
 }
+
+func TestGetNameReportCommand(t *testing.T) {
+	cmd := ReportCommand{
+		Name: "REPORT",
+	}
+
+	name := cmd.GetName()
+	if name != cmd.Name {
+		t.Fatalf("Expected command name is %s but got %s", cmd.Name, name)
+	}
+}

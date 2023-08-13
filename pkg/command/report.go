@@ -20,3 +20,7 @@ func (c ReportCommand) Execute(r *robot.Robot) error {
 	fmt.Printf("Output: %s\n", r.Position.String())
 	return nil
 }
+
+func (c ReportCommand) GetName() string {
+	return c.Name
+}

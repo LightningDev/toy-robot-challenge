@@ -19,3 +19,7 @@ func (c RightCommand) Execute(r *robot.Robot) error {
 
 	return nil
 }
+
+func (c RightCommand) GetName() string {
+	return c.Name
+}

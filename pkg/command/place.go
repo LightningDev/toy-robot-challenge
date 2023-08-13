@@ -52,3 +52,7 @@ func (c PlaceCommand) Execute(r *robot.Robot) error {
 	r.Active = true
 	return nil
 }
+
+func (c PlaceCommand) GetName() string {
+	return c.Name
+}

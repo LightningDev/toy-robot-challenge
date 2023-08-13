@@ -26,3 +26,7 @@ func (c MoveCommand) Execute(r *robot.Robot) error {
 
 	return nil
 }
+
+func (c MoveCommand) GetName() string {
+	return c.Name
+}

@@ -3,6 +3,7 @@ package robot
 import "github.com/LightningDev/toy-robot-challenge/pkg/position"
 
 type Command interface {
+	GetName() string
 	Execute(r *Robot) error
 }
 
