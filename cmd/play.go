@@ -1,16 +1,17 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 Nhat Tran nhat1811@gmail.com
 */
 package cmd
 
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
-	"github.com/LightningDev/toy-robot-challenge/internal/errors"
 	"github.com/LightningDev/toy-robot-challenge/internal/parser"
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
 	"github.com/spf13/cobra"
@@ -38,31 +39,47 @@ Available commands:
 
 // Allow user to input command from the console
 func inputCommand(cmd *cobra.Command, args []string) {
-	fmt.Println(cmd.Long)
-	fmt.Println("Each command must be on a separate line.")
-	fmt.Println("Please start entering commands. Enter EXIT to exit.")
+	robot := &robot.Robot{}
+	var reader *bufio.Reader
 
-	// Set up a signal handler to capture Ctrl+C
-	sigChan := make(chan os.Signal, 1)
-	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
-	go func() {
-		<-sigChan
-		fmt.Println("\nExiting...")
-		os.Exit(0)
-	}()
+	if filename != "" {
+		// If filename is provided, read commands from file
+		file, err := os.Open(filename)
+		if err != nil {
+			fmt.Printf("Error opening file %s: %v\n", filename, err)
+			return
+		}
+		defer file.Close()
+
+		reader = bufio.NewReader(file)
+	} else {
+		fmt.Println(cmd.Long)
+		// Else read from standard input
+		fmt.Println("Each command must be on a separate line.")
+		fmt.Println("Please start entering commands. Enter EXIT to exit.")
+
+		// Set up a signal handler to capture Ctrl+C
+		sigChan := make(chan os.Signal, 1)
+		signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+		go func() {
+			<-sigChan
+			fmt.Println("\nExiting...")
+			os.Exit(0)
+		}()
+
+		reader = bufio.NewReader(os.Stdin)
+	}
 
 	// Input loop
-	robot := &robot.Robot{}
-	reader := bufio.NewReader(os.Stdin)
 	for {
 		input, err := reader.ReadString('\n')
-		if err != nil {
+		if err != nil && err != io.EOF {
 			fmt.Println("Error reading input:", err)
 			return
 		}
 
-		input = input[:len(input)-1] // Remove the newline character
-		if input == "EXIT" {
+		input = strings.TrimSuffix(input, "\n")
+		if input == "EXIT" || (err == io.EOF && input == "") {
 			break
 		}
 
@@ -75,7 +92,8 @@ func inputCommand(cmd *cobra.Command, args []string) {
 
 		err = robot.Do(command)
 		if err != nil {
-			errors.HandleError(err)
+			//errors.HandleError(err)
+			continue
 		}
 	}
 }
@@ -83,13 +101,5 @@ func inputCommand(cmd *cobra.Command, args []string) {
 func init() {
 	rootCmd.AddCommand(playCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
 	playCmd.PersistentFlags().StringVarP(&filename, "file", "f", "", "Read input from a file")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// playCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
