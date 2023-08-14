@@ -1,7 +1,6 @@
 package errors
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"runtime/debug"
@@ -29,19 +28,15 @@ func HandleError(err error) {
 	switch e := err.(type) {
 	case *ValidationError:
 		if Debug {
-			log.Printf("Validation error in field %s: %s", e.Command, e.Err)
+			log.Printf("[DEBUG] Validation error in field %s: %s", e.Command, e.Err)
 		} else {
-			log.Printf("Issue with the command '%s': %s", e.Command, e.Err)
+			log.Printf("Command '%s': %s", e.Command, e.Err)
 		}
 	default:
 		if Debug {
-			log.Printf("Unknown error: %+v", err)
+			log.Printf("[DEBUG] Unknown error: %+v", err)
 		} else {
 			log.Println("Sorry, an unexpected error occurred. Please try again!")
 		}
 	}
-}
-
-func New(message string) error {
-	return errors.New(message)
 }

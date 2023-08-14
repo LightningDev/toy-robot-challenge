@@ -1,7 +1,6 @@
 package position
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/LightningDev/toy-robot-challenge/pkg/table"
@@ -46,7 +45,7 @@ func move(p *Position, step int) error {
 	}
 
 	if !table.IsValidPosition(newX, newY) {
-		return errors.New("invalid position")
+		return fmt.Errorf("invalid position %d,%d,%s", newX, newY, p.Direction)
 	}
 
 	p.X = newX
