@@ -18,6 +18,7 @@ func New{{ totitle .CmdName }}Command(args []string) (robot.Command, error) {
 }
 
 func (c {{ totitle .CmdName }}Command) Execute(r *robot.Robot) error {
+	// TODO: Implement {{ totitle .CmdName }}Command Logic Here
 	return nil
 }
 

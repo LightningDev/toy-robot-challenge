@@ -30,13 +30,13 @@ func HandleError(err error) {
 		if Debug {
 			log.Printf("[DEBUG] Validation error in field %s: %s", e.Command, e.Err)
 		} else {
-			log.Printf("Command '%s': %s", e.Command, e.Err)
+			fmt.Printf("Command '%s': %s", e.Command, e.Err)
 		}
 	default:
 		if Debug {
 			log.Printf("[DEBUG] Unknown error: %+v", err)
 		} else {
-			log.Println("Sorry, an unexpected error occurred. Please try again!")
+			fmt.Printf("Sorry, an unexpected error occurred. Please try again!")
 		}
 	}
 }

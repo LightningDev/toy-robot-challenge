@@ -1,39 +1,25 @@
 [
   {
-    "commands":[
-       "PLACE 5,5,NORTH",
-       "REPORT"
-    ],
-    "output":[""]
+    "commands": ["PLACE 5,5,NORTH", "REPORT"],
+    "output": [
+      "Command 'PLACE': invalid position",
+      "Command 'REPORT': please place the robot first"
+    ]
   },
   {
-     "commands":[
-        "PLACE 0,0,NORTH",
-        "REPORT"
-     ],
-     "output":["Output: 0,0,NORTH"]
+    "commands": ["PLACE 0,0,NORTH", "REPORT"],
+    "output": ["Output: 0,0,NORTH"]
   },
   {
-     "commands":[
-        "PLACE 0,0,NORTH",
-        "LEFT",
-        "REPORT"
-     ],
-     "output":["0,0,WEST"]
+    "commands": ["PLACE 0,0,NORTH", "LEFT", "REPORT"],
+    "output": ["0,0,WEST"]
   },
   {
-     "commands":[
-        "PLACE 1,2,EAST",
-        "MOVE",
-        "MOVE",
-        "LEFT",
-        "MOVE",
-        "REPORT"
-     ],
-     "output":["Output: 3,3,NORTH"]
+    "commands": ["PLACE 1,2,EAST", "MOVE", "MOVE", "LEFT", "MOVE", "REPORT"],
+    "output": ["Output: 3,3,NORTH"]
   },
   {
-     "commands":[
+    "commands": [
       "PLACE 1,1,NORTH",
       "MOVE",
       "LEFT",
@@ -47,12 +33,12 @@
       "MOVE",
       "LEFT",
       "REPORT"
-     ],
-     "output":[
+    ],
+    "output": [
       "Output: 1,2,WEST",
       "Output: 0,2,SOUTH",
       "Output: 0,1,EAST",
       "Output: 1,1,NORTH"
-     ]
+    ]
   }
 ]
