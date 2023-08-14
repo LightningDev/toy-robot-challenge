@@ -12,6 +12,7 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/LightningDev/toy-robot-challenge/internal/errors"
 	"github.com/LightningDev/toy-robot-challenge/internal/parser"
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
 	"github.com/LightningDev/toy-robot-challenge/pkg/table"
@@ -91,15 +92,14 @@ func inputCommand(cmd *cobra.Command, args []string) {
 		}
 
 		command, err := parser.ParseCommand(input, *robot)
-
 		if err != nil {
-			//fmt.Println(err.Error())
+			errors.HandleError(err)
 			continue
 		}
 
 		err = robot.Do(command)
 		if err != nil {
-			//errors.HandleError(err)
+			errors.HandleError(err)
 			continue
 		}
 	}

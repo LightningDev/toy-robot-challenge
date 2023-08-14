@@ -25,9 +25,27 @@ func NewPlaceCommand(args []string) (robot.Command, error) {
 		}
 	}
 
-	newX, _ := strconv.Atoi(args[0])
-	newY, _ := strconv.Atoi(args[1])
+	newX, err := strconv.Atoi(args[0])
+	if err != nil {
+		return nil, &errors.ValidationError{
+			Command: "PLACE",
+			Err:     errors.New("invalid X position"),
+		}
+	}
+	newY, err := strconv.Atoi(args[1])
+	if err != nil {
+		return nil, &errors.ValidationError{
+			Command: "PLACE",
+			Err:     errors.New("invalid Y position"),
+		}
+	}
 	facing := position.StrToDirection(args[2])
+	if facing == -1 {
+		return nil, &errors.ValidationError{
+			Command: "PLACE",
+			Err:     errors.New("invalid facing direction"),
+		}
+	}
 
 	return PlaceCommand{
 		Name:   "PLACE",
@@ -42,7 +60,7 @@ func (c PlaceCommand) Execute(r *robot.Robot) error {
 		r.Active = false || r.Active
 		return &errors.ValidationError{
 			Command: c.Name,
-			Err:     fmt.Errorf("invalid position"),
+			Err:     errors.New("invalid position"),
 		}
 	}
 

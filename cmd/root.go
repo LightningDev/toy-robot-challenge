@@ -6,6 +6,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/LightningDev/toy-robot-challenge/internal/errors"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +29,5 @@ func Execute() {
 }
 
 func init() {
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.PersistentFlags().BoolVarP(&errors.Debug, "debug", "d", false, "Toggle debug mode to debug the application")
 }

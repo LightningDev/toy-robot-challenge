@@ -27,7 +27,10 @@ func ParseCommand(robotCommand string, robot robot.Robot) (robot.Command, error)
 
 	// Skip if robot is not active
 	if commandName != "PLACE" && !robot.Active {
-		return nil, fmt.Errorf("please place the robot on the board first")
+		return nil, &errors.ValidationError{
+			Command: commandName,
+			Err:     fmt.Errorf("please place the robot first"),
+		}
 	}
 
 	foundCommand, found := command.CommandList[commandName]
