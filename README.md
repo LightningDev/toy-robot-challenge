@@ -1,6 +1,14 @@
 # Toy Robot Challenge
 This project is an implementation of the Toy Robot simulation, allowing a toy robot to roam around a 5x5 or nxn (where n is any integer number) grid and execute a series of commands.
 
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Project Structure](#project-structure)
+3. [Implementation](#implementation)
+4. [Getting Started](#getting-started)
+5. [Extra Features](#extra-features)
+
 ## Introduction
 - The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units x 5 units.
 - There are no other obstructions on the table surface.
@@ -178,9 +186,9 @@ You can add additional test cases using the following format to use in `cmd/cmd_
 }
 ```
 
-### Extra features
+## Extra features
 
-#### Running from file
+### Running from file
 You can place all the commands in a text file and execute them directly without manual typing. Use the following command:
 ```bash
 go run . play -f <your_file_location>
@@ -191,7 +199,7 @@ The project root also contains a sample command file that you can test:
 go run . play -f ./sample_command.txt
 ```
 
-#### Running with different table size
+### Running with different table size
 You have the option to play the game on a larger board. Use the following command to specify the board's dimensions:
 
 ```bash
@@ -204,7 +212,7 @@ These flags can also be combined with the command to run from a file:
 go run . play -f ./sample_command.txt --width 10 --height 10
 ```
 
-#### Adding a new command template
+### Adding a new command template
 if you wish to develop another command, the CLI offers an option to generate a template file for a new command. This allows you to easily insert your own logic.
 ```bash
 go run . add command <your_command_name>
@@ -276,7 +284,7 @@ var CommandList = map[string]func([]string) (robot.Command, error){
 
 Afterwards, you can begin implementing your own command logic within the `Execute` function, which is derived from the `Command` interface in `robot`.
 
-#### Running with debug
+### Running with debug
 By default, the app displays user-friendly error messages. However, by using the `-d` flag when running the command, it will also print out both the message and stack trace, enhancing the debugging experience.
 
 ```bash
