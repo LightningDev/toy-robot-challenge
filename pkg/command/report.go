@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
 type ReportCommand struct {
@@ -16,7 +17,7 @@ func NewReportCommand(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c ReportCommand) Execute(r *robot.Robot) error {
+func (c ReportCommand) Execute(r *robot.Robot, t table.Table) error {
 	fmt.Printf("Output: %s\n", r.Position)
 	return nil
 }

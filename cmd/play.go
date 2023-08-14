@@ -45,8 +45,7 @@ Available commands:
 // Allow user to input command from the console
 func inputCommand(cmd *cobra.Command, args []string) {
 	robot := &robot.Robot{}
-	table.BoardX = width
-	table.BoardY = height
+	board := table.New(width, height)
 
 	var reader *bufio.Reader
 
@@ -98,7 +97,7 @@ func inputCommand(cmd *cobra.Command, args []string) {
 			continue
 		}
 
-		err = robot.Do(command)
+		err = robot.Do(command, *board)
 		if err != nil {
 			errors.HandleError(err)
 			continue

@@ -2,7 +2,11 @@ package position
 
 import (
 	"testing"
+
+	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
+
+var board = table.New(5, 5)
 
 func TestRotate(t *testing.T) {
 	tests := []struct {
@@ -40,7 +44,7 @@ func TestForward(t *testing.T) {
 
 	for _, tt := range tests {
 		pos := &Position{X: tt.startX, Y: tt.startY, Direction: tt.direction}
-		err := pos.Forward()
+		err := pos.Forward(*board)
 		if (err != nil) != tt.expectedError {
 			t.Errorf("For position (%d,%d) facing %v, expected error to be %v but got %v", tt.startX, tt.startY, tt.direction, tt.expectedError, err)
 		}
@@ -65,7 +69,7 @@ func TestBackward(t *testing.T) {
 
 	for _, tt := range tests {
 		pos := &Position{X: tt.startX, Y: tt.startY, Direction: tt.direction}
-		err := pos.Backward()
+		err := pos.Backward(*board)
 		if (err != nil) != tt.expectedError {
 			t.Errorf("For position (%d,%d) facing %v, expected error to be %v but got %v", tt.startX, tt.startY, tt.direction, tt.expectedError, err)
 		}

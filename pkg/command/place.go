@@ -55,8 +55,8 @@ func NewPlaceCommand(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c PlaceCommand) Execute(r *robot.Robot) error {
-	if !table.IsValidPosition(c.X, c.Y) {
+func (c PlaceCommand) Execute(r *robot.Robot, t table.Table) error {
+	if !t.IsValidPosition(c.X, c.Y) {
 		r.Active = false || r.Active
 		return &errors.ValidationError{
 			Command: c.Name,

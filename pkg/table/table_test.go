@@ -6,6 +6,8 @@ import (
 )
 
 func TestIsValidPosition(t *testing.T) {
+	board := New(5, 5)
+
 	tests := []struct {
 		x, y     int
 		expected bool
@@ -35,7 +37,7 @@ func TestIsValidPosition(t *testing.T) {
 				return "IsValidPosition(" + strconv.Itoa(tt.x) + "," + strconv.Itoa(tt.y) + ")"
 			}(),
 			func(t *testing.T) {
-				actual := IsValidPosition(tt.x, tt.y)
+				actual := board.IsValidPosition(tt.x, tt.y)
 				if actual != tt.expected {
 					t.Errorf("expected %v; got %v", tt.expected, actual)
 				}

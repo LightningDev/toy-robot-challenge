@@ -2,6 +2,7 @@ package command
 
 import (
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
 type LeftCommand struct {
@@ -14,7 +15,7 @@ func NewLeftCommand(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c LeftCommand) Execute(r *robot.Robot) error {
+func (c LeftCommand) Execute(r *robot.Robot, t table.Table) error {
 	r.Position.Rotate(-90) // Clockwise rotation
 
 	return nil

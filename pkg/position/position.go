@@ -21,15 +21,15 @@ func (p *Position) Rotate(degree int) {
 	p.Direction = DegreeToDirection(newDirection)
 }
 
-func (p *Position) Forward() error {
-	return move(p, 1)
+func (p *Position) Forward(t table.Table) error {
+	return move(p, t, 1)
 }
 
-func (p *Position) Backward() error {
-	return move(p, -1) // Backward is just a negative forward
+func (p *Position) Backward(t table.Table) error {
+	return move(p, t, -1) // Backward is just a negative forward
 }
 
-func move(p *Position, step int) error {
+func move(p *Position, t table.Table, step int) error {
 	newX := p.X
 	newY := p.Y
 
@@ -44,7 +44,7 @@ func move(p *Position, step int) error {
 		newX -= step
 	}
 
-	if !table.IsValidPosition(newX, newY) {
+	if !t.IsValidPosition(newX, newY) {
 		return fmt.Errorf("invalid position %d,%d,%s", newX, newY, p.Direction)
 	}
 

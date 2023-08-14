@@ -5,6 +5,7 @@ func CommandTemplate() []byte {
 
 import (
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
 type {{ totitle .CmdName }}Command struct {
@@ -17,7 +18,7 @@ func New{{ totitle .CmdName }}Command(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c {{ totitle .CmdName }}Command) Execute(r *robot.Robot) error {
+func (c {{ totitle .CmdName }}Command) Execute(r *robot.Robot, t table.Table) error {
 	// TODO: Implement {{ totitle .CmdName }}Command Logic Here
 	return nil
 }
@@ -35,6 +36,7 @@ import (
 	"testing"
 
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
 func TestNew{{ totitle .CmdName }}Command(t *testing.T) {
@@ -54,13 +56,14 @@ func TestNew{{ totitle .CmdName }}Command(t *testing.T) {
 }
 
 func TestExecute{{ totitle .CmdName }}Command(t *testing.T) {
+	board := table.New(5, 5)
 	r := &robot.Robot{}
 
 	cmd := {{ totitle .CmdName }}Command{
 		Name: "{{ toupper .CmdName }}",
 	}
 
-	err := cmd.Execute(r)
+	err := cmd.Execute(r, *board)
 	if err != nil {
 		t.Fatalf("Expected no error but got: %v", err)
 	}

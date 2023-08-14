@@ -5,6 +5,7 @@ import (
 
 	"github.com/LightningDev/toy-robot-challenge/pkg/position"
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
 func TestNewPlaceCommand(t *testing.T) {
@@ -44,6 +45,7 @@ func TestNewPlaceCommand(t *testing.T) {
 }
 
 func TestExecutePlaceCommand(t *testing.T) {
+	board := table.New(5, 5)
 	tests := []struct {
 		x          int
 		y          int
@@ -64,7 +66,7 @@ func TestExecutePlaceCommand(t *testing.T) {
 			Facing: test.dir,
 		}
 
-		err := cmd.Execute(r)
+		err := cmd.Execute(r, *board)
 		if err != nil && !test.shouldFail {
 			t.Errorf("Expected no error but got: %v", err)
 		}
