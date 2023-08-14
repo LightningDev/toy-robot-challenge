@@ -14,11 +14,15 @@ import (
 
 	"github.com/LightningDev/toy-robot-challenge/internal/parser"
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 	"github.com/spf13/cobra"
 )
 
 // File name
 var filename string
+
+// Table size
+var width, height int
 
 // playCmd represents the play command
 var playCmd = &cobra.Command{
@@ -40,6 +44,9 @@ Available commands:
 // Allow user to input command from the console
 func inputCommand(cmd *cobra.Command, args []string) {
 	robot := &robot.Robot{}
+	table.BoardX = width
+	table.BoardY = height
+
 	var reader *bufio.Reader
 
 	if filename != "" {
@@ -101,5 +108,7 @@ func inputCommand(cmd *cobra.Command, args []string) {
 func init() {
 	rootCmd.AddCommand(playCmd)
 
-	playCmd.PersistentFlags().StringVarP(&filename, "file", "f", "", "Read input from a file")
+	playCmd.Flags().StringVarP(&filename, "file", "f", "", "Read input from a file")
+	playCmd.Flags().IntVar(&width, "width", 5, "Width of the table")
+	playCmd.Flags().IntVar(&height, "height", 5, "Height of the table")
 }
