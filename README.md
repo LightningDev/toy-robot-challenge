@@ -1,7 +1,7 @@
-# Robot Challenge
+# Toy Robot Challenge
+This project is an implementation of the Toy Robot simulation, allowing a toy robot to roam around a 5x5 or nxn (where n is any integer number) grid and execute a series of commands.
 
-## Description
-
+## Introduction
 - The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units x 5 units.
 - There are no other obstructions on the table surface.
 - The robot is free to roam around the surface of the table, but must be prevented from falling to destruction. Any movement
@@ -62,55 +62,222 @@ REPORT
 Output: 3,3,NORTH
 ```
 
-## Deliverables
+## Project Structure
+```markdown
+.
+├── build             // dockerfile
+├── cmd               // command list of CLI
+├── config            // command configuration
+├── internal          // internal package for robot app
+│   ├── errors        // custom errors handler
+│   ├── generator     // generate command from template
+│   └── parser        // parse command from user input
+├── pkg               // package folder of robot app
+│   ├── command       // command logic
+│   ├── position      // position and direction
+│   ├── robot         // robot
+│   └── table         // table
+└── test              // external test data and helper file
+```
 
-The source files, the test data and any test code (as well as explanations of how to run everything).
+## Implementation
+The project not only addresses the foundational requirements of the toy robot challenge but also introduces several enhancements to improve the user experience and the system's extensibility:
 
-## Expectations
+- Implementation of all basic commands.
+- Provision of user-friendly error messages, coupled with a debug mode for detailed error insights.
+- Capability to introduce additional commands on-the-fly.
+- Flexibility to dynamically set the table size.
 
-- There is no time limit for the test, you can take as long as you like, but a reasonable thing that most people do is to take a weekend to do it and send the solution back (i.e. turn it around within a week). If you need more time that's fine, just send us a quick message to let us know.
-- You're welcome to use whatever language you like, our tech stack is Ruby and Typescript so either one of those would be well regarded, but if you want to use a different language you're welcome to, just make sure we can easily run it (e.g. docker image). It's also worthwhile to make sure that the language you pick (if something other than Ruby or TS) is the best way to showcase your skills. Remember you will be pairing and extending this solution if you get to that part of the interview process.
-- The expectation is that you will create a command line application, please don't build a web ui/api etc.
-- You will use this coding test as a showcase of your skills as a developer, we should be able to look at this code and learn something about the way you think and about how you solve problems.
+### Questions
+Given that commands can be case-sensitive and considering the intended audience for this app, it's beneficial to offer a user-friendly interface with permissive input to foster a pleasant experience. 
 
-We're not just looking for a minimal solution that would solve the problem. We're looking for:
+However, every decision has its trade-offs. From a developer's perspective, it's essential to ensure that all case combinations are comprehended and processed correctly.
 
-- production quality code
-- good OO and/or functional practices
-- a solid testing approach
-- well thought out naming
-- solid error handling
-- extensibility/maintainability/\*ility
-- good design from a software engineering perspective
-- separation of concerns, i.e. low coupling high cohesion
-- sensible breakdown of code into files/modules
-- use of best practices/idioms when it comes to language, testing etc.
-- appropriate use of tools/frameworks
-- performant code, i.e. memory/cpu efficient
-- etc
+Overall, prioritizing a superior user experience aligns with the primary objective for this application.
 
-Basically treat the coding test as if it's a larger problem, a little bit of over-engineering is likely a good idea.
+## Design
+When beginning the design of a solution, it's crucial to ensure the flexibility and maintainability of the code. While perfection might not be achieved on the first try, adhering to standard coding practices can aid in making improvements more seamlessly.
 
-## Common issues to avoid/think about
+Here are some key takeaways from the implementation of this project:
+- A Robot is an actor with properties that can be influenced by external actions.
+- These external actions, such as commands, should be designed flexibly. They should be implementable without altering the core Robot codebase.
+- The Robot doesn't need to understand the intricacies of an action; its primary role is to execute it.
+- Drawing a parallel, consider a car. Various cars have distinct designs, but as a driver, your main goal is to press the pedal to set it in motion, without needing a deep understanding of its mechanics. :)
+- The table also has a public property for its size. This allows it to be initialized on-the-fly via the CLI, enabling games to start with custom sizes rather than just the hardcoded 5 x 5 dimension.
+- While the app will skip any invalid commands as per the requirements, it should still provide a user-friendly message to inform the user about the situation.
 
-- edge case inputs break the application
-- a large amount of input data will kill the application/cause it to be slow/cause it to be unresponsive
-- it requires a lot of effort to add new commands to the application
-- it requires a lot of effort to change the dimensions of the table
-- the application is not resilient to changes in the format of the input
-- the application is not resilient to changes in the source of the input
-- the application is not resilient to changes in the format of the output
-- elements of the design clearly violate SOLID (if OO)
-- the solution doesn't invert any dependencies
-- the solution violates DRY
+## Getting Started
 
-## Self-assessment checklist
+### Prerequisites
 
-- Does the submission exhibit a good understand of OO and/or functional priniciples
-- Does the submission exhibit a solid testing approach (good mix of unit and integration tests etc.)
-- Does the submission exhibit well thought out variable/function/class naming
-- Does the submission exhibit a solid approach to error handling (can't easily get a stack trace on the command line)
-- Does the submission exhibit low coupling/high cohesion
-- Is the code easy to read/understand/extend
-- Would I be happy to have code of a similar standard in production
-- Would I be happy to inherit/modify/extend/maintain code of a similar standard
+- Go 1.20 or higher: [Official installation guide](https://go.dev/doc/install)
+- Docker (optional for containerization): [Download here](https://www.docker.com)
+
+### Running the Project
+The project can be executed either locally or using Docker.
+
+#### Local
+
+1. Make sure you have all the prerequisites installed.
+2. Intall all go packages:
+```bash
+go mod download
+go mod verify
+```
+3. Run direct with `go` command or via a build
+```bash
+go run . play
+```
+or
+```bash
+go build -o toy-robot
+./toy-robot play
+```
+
+#### Docker
+
+1. Build image
+```bash
+@docker build -f ./build/Dockerfile -t toyrobot-app .
+```
+2. Run container from image
+```bash
+@docker run -it --rm toyrobot-app play
+```
+
+#### Makefile
+I also created a Makefile so it can be simple to run via make command
+For Docker:
+```bash
+make build-docker
+make run-docker
+```
+Run directly on your machine:
+```bash
+make run
+```
+
+### Running the tests
+```bash
+go test ./... -v
+```
+Run by Makefile
+```bash
+make test
+```
+The `test` folder provides a JSON file that can be used to set up extensive test cases and their expected outputs.
+
+You can add additional test cases using the following format to use in `cmd/cmd_test.go`. For example:
+```json
+{
+  "commands": ["PLACE 5,5,NORTH", "REPORT"],
+  "output": [
+    "Command 'PLACE': invalid position",
+    "Command 'REPORT': please place the robot first"
+  ]
+}
+```
+
+### Extra features
+
+#### Running from file
+You can place all the commands in a text file and execute them directly without manual typing. Use the following command:
+```bash
+go run . play -f <your_file_location>
+```
+
+The project root also contains a sample command file that you can test:
+```bash
+go run . play -f ./sample_command.txt
+```
+
+#### Running with different table size
+You have the option to play the game on a larger board. Use the following command to specify the board's dimensions:
+
+```bash
+go run . play --width 10 --height 10
+```
+
+These flags can also be combined with the command to run from a file:
+
+```bash
+go run . play -f ./sample_command.txt --width 10 --height 10
+```
+
+#### Adding a new command template
+if you wish to develop another command, the CLI offers an option to generate a template file for a new command. This allows you to easily insert your own logic.
+```bash
+go run . add command <your_command_name>
+```
+
+For example:
+```bash
+go run . add command jump
+```
+After running this command, it will generate two new files:
+- `pkg/command/jump.go`: jump command logic template
+```go
+package command
+
+import (
+	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+)
+
+type JumpCommand struct {
+	Name string
+}
+
+func NewJumpCommand(args []string) (robot.Command, error) {
+	return JumpCommand{
+		Name: "JUMP",
+	}, nil
+}
+
+func (c JumpCommand) Execute(r *robot.Robot) error {
+	// TODO: Implement JumpCommand Logic Here
+	return nil
+}
+
+func (c JumpCommand) GetName() string {
+	return c.Name
+}
+
+```
+- `pkg/command/jump_test.go`: test template for jump command
+
+Furthermore, it updates `pkg/command/command.go` and `config/command.json` to register your new command. These files can be understood as the source of truth, allowing us to check the list of available commands in the app.
+
+`pkg/command/command.go`
+```go
+var CommandList = map[string]func([]string) (robot.Command, error){
+	"PLACE": NewPlaceCommand,
+	"REPORT": NewReportCommand,
+	"MOVE": NewMoveCommand,
+	"LEFT": NewLeftCommand,
+	"RIGHT": NewRightCommand,
+	"JUMP": NewJumpCommand,
+}
+```
+
+`config/command.json`
+```json
+{
+  "Commands": [
+    "PLACE",
+    "REPORT",
+    "MOVE",
+    "LEFT",
+    "RIGHT",
+    "JUMP"
+  ]
+}
+```
+
+Afterwards, you can begin implementing your own command logic within the `Execute` function, which is derived from the `Command` interface in `robot`.
+
+#### Running with debug
+By default, the app displays user-friendly error messages. However, by using the `-d` flag when running the command, it will also print out both the message and stack trace, enhancing the debugging experience.
+
+```bash
+go run . play -d
+```

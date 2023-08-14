@@ -29,7 +29,7 @@ var width, height int
 var playCmd = &cobra.Command{
 	Use:   "play",
 	Short: "Start playing toy robot game",
-	Long: `You have a toy robot on a table top, a grid of 5 x 5 units, there are no obstructions.
+	Long: `You have a toy robot on a table top, a grid of nxn units, there are no obstructions.
 You can issue commands to your robot allowing it to roam around the table top. But be careful, don't let it fall off!
 
 Available commands:
@@ -61,8 +61,9 @@ func inputCommand(cmd *cobra.Command, args []string) {
 
 		reader = bufio.NewReader(file)
 	} else {
-		fmt.Println(cmd.Long)
 		// Else read from standard input
+		boardSize := fmt.Sprintf("%d x %d", width, height)
+		fmt.Println(strings.Replace(cmd.Long, "nxn", boardSize, 1))
 		fmt.Println("Each command must be on a separate line.")
 		fmt.Println("Please start entering commands. Enter EXIT to exit.")
 
