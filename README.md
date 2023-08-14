@@ -221,6 +221,7 @@ package command
 
 import (
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
+  "github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
 type JumpCommand struct {
@@ -233,7 +234,7 @@ func NewJumpCommand(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c JumpCommand) Execute(r *robot.Robot) error {
+func (c JumpCommand) Execute(r *robot.Robot, t table.Table) error {
 	// TODO: Implement JumpCommand Logic Here
 	return nil
 }
