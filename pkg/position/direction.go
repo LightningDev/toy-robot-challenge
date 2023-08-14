@@ -1,6 +1,8 @@
 package position
 
-import "strings"
+import (
+	"strings"
+)
 
 type Direction int
 
@@ -22,7 +24,8 @@ func (d Direction) String() string {
 	if str, found := directionList[d]; found {
 		return str
 	}
-	return "UNKNOWN"
+
+	return ""
 }
 
 func (d Direction) Degree() int {

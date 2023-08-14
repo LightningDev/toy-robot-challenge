@@ -11,7 +11,7 @@ func TestDirectionString(t *testing.T) {
 		{SOUTH, "SOUTH"},
 		{EAST, "EAST"},
 		{WEST, "WEST"},
-		{-5, "UNKNOWN"},
+		{-5, ""},
 	}
 
 	for _, tt := range tests {
