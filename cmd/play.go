@@ -64,7 +64,7 @@ func inputCommand(cmd *cobra.Command, args []string) {
 		boardSize := fmt.Sprintf("%d x %d", width, height)
 		fmt.Println(strings.Replace(cmd.Long, "nxn", boardSize, 1))
 		fmt.Println("Each command must be on a separate line.")
-		fmt.Println("Please start entering commands. Enter EXIT to exit.")
+		fmt.Println("Please start entering commands. <Ctrl + c> to exit.")
 
 		// Set up a signal handler to capture Ctrl+C
 		sigChan := make(chan os.Signal, 1)
@@ -87,7 +87,7 @@ func inputCommand(cmd *cobra.Command, args []string) {
 		}
 
 		input = strings.TrimSuffix(input, "\n")
-		if input == "EXIT" || (err == io.EOF && input == "") {
+		if err == io.EOF && input == "" {
 			break
 		}
 

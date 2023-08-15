@@ -28,15 +28,15 @@ func HandleError(err error) {
 	switch e := err.(type) {
 	case *ValidationError:
 		if Debug {
-			log.Printf("[DEBUG] Validation error in field %s: %s", e.Command, e.Err)
+			log.Printf("[DEBUG] Validation error in field %s: %s\n", e.Command, e.Err)
 		} else {
-			fmt.Printf("Command '%s': %s", e.Command, e.Err)
+			fmt.Printf("Command '%s': %s\n", e.Command, e.Err)
 		}
 	default:
 		if Debug {
-			log.Printf("[DEBUG] Unknown error: %+v", err)
+			log.Printf("[DEBUG] Unknown error: %+v\n", err)
 		} else {
-			fmt.Printf("Sorry, an unexpected error occurred. Please try again!")
+			fmt.Printf("Sorry, an unexpected error occurred. Please try again!\n")
 		}
 	}
 }
