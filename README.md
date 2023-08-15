@@ -83,9 +83,9 @@ Output: 3,3,NORTH
 │   └── parser        // parse command from user input
 ├── pkg               // package folder of robot app
 │   ├── command       // command logic
-│   ├── position      // position and direction
-│   ├── robot         // robot
-│   └── table         // table
+│   ├── position      // position and direction module
+│   ├── robot         // robot module
+│   └── table         // table module
 └── test              // external test data and helper file
 ```
 
