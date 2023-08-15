@@ -74,6 +74,8 @@ Output: 3,3,NORTH
 ## Project Structure
 ```markdown
 .
+├── .github
+│   ├── workflows     // simple github action for ci
 ├── build             // dockerfile
 ├── cmd               // command list of CLI
 ├── config            // command configuration
