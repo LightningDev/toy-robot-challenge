@@ -95,6 +95,7 @@ Output: 3,3,NORTH
 The project not only addresses the foundational requirements of the toy robot challenge but also introduces several enhancements to improve the user experience and the system's extensibility:
 
 - Implementation of all basic commands.
+- Allow permissive input and not forcing capital command to improve user experience.
 - Provision of user-friendly error messages, coupled with a debug mode for detailed error insights.
 - Capability to introduce additional commands on-the-fly.
 - Flexibility to dynamically set the table size.
@@ -107,7 +108,7 @@ However, every decision has its trade-offs. From a developer's perspective, it's
 
 Overall, prioritizing a superior user experience aligns with the primary objective for this application.
 
-## Design
+### Design
 When beginning the design of a solution, it's crucial to ensure the flexibility and maintainability of the code. While perfection might not be achieved on the first try, adhering to standard coding practices can aid in making improvements more seamlessly.
 
 Here are some key takeaways from the implementation of this project:
