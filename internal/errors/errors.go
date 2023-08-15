@@ -14,7 +14,12 @@ type ValidationError struct {
 }
 
 func (e *ValidationError) Error() string {
-	return fmt.Sprintf("%s: %s", e.Command, e.Err.Error())
+	err := fmt.Sprintf("%s: %s", e.Command, e.Err.Error())
+	if e.Command == "" {
+		err = e.Err.Error()
+	}
+
+	return err
 }
 
 func HandleError(err error) {

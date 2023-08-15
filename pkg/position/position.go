@@ -46,8 +46,9 @@ func move(p *Position, t table.Table, step int) error {
 	}
 
 	if !t.IsValidPosition(newX, newY) {
-		return &errors.InvalidPositionError{
-			Err: fmt.Errorf(p.String()),
+		return &errors.ValidationError{
+			Command: "",
+			Err:     fmt.Errorf("move from %s to %s is invalid", p, Position{newX, newY, p.Direction}),
 		}
 	}
 
