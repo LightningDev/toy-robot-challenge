@@ -7,8 +7,9 @@ This project is an implementation of the Toy Robot simulation, allowing a toy ro
 2. [Project Structure](#project-structure)
 3. [Implementation](#implementation)
 4. [Getting Started](#getting-started)
-5. [Extra Features](#extra-features)
-6. [Possible Improvements](#possible-improvements)
+5. [CLI Overview](#cli-overview)
+6. [Extra Features](#extra-features)
+7. [Possible Improvements](#possible-improvements)
 
 ## Introduction
 - The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units x 5 units.
@@ -190,10 +191,29 @@ You can add additional test cases using the following format to use in `cmd/cmd_
   ]
 }
 ```
+## CLI Overview
+The CLI currently has 2 main commands:
+- `play`: starts the game
+- `add command <command_name>`: adds a new command to the app and generates a code template so you can begin development.
 
-## Extra features
+When starting with `play`, you can include a few extra flags:
+- `-f` or `--file`: specify a text file containing commands
+- `--width`: width of the table
+- `--height`: height of the table
+- `-d`: displays error logs in debug mode
+
+## Extra Features
+Here are some extra features we have and how to run them.
 
 ### Running from file
+Text file should contain a single command per line.
+For example:
+```
+PLACE 1,1,SOUTH
+MOVE
+REPORT
+```
+
 You can place all the commands in a text file and execute them directly without manual typing. Use the following command:
 ```bash
 go run . play -f <your_file_location>
@@ -296,7 +316,7 @@ By default, the app displays user-friendly error messages. However, by using the
 go run . play -d
 ```
 
-## Possible improvements
+## Possible Improvements
 The generator, as it stands, can only generate an extra command. However, it should be improved to generate more than just commands, such as additional objects on the table.
 
 The errors package could introduce more types of errors, not just `ValidationError`. Given the current size of the project, it's not necessary to introduce more types of errors, but it should be considered in the future.
