@@ -44,7 +44,7 @@ func TestForward(t *testing.T) {
 
 	for _, tt := range tests {
 		pos := &Position{X: tt.startX, Y: tt.startY, Direction: tt.direction}
-		err := pos.Forward(*board)
+		err := pos.Forward(*board, 1)
 		if (err != nil) != tt.expectedError {
 			t.Errorf("For position (%d,%d) facing %v, expected error to be %v but got %v", tt.startX, tt.startY, tt.direction, tt.expectedError, err)
 		}
@@ -69,7 +69,7 @@ func TestBackward(t *testing.T) {
 
 	for _, tt := range tests {
 		pos := &Position{X: tt.startX, Y: tt.startY, Direction: tt.direction}
-		err := pos.Backward(*board)
+		err := pos.Backward(*board, 1)
 		if (err != nil) != tt.expectedError {
 			t.Errorf("For position (%d,%d) facing %v, expected error to be %v but got %v", tt.startX, tt.startY, tt.direction, tt.expectedError, err)
 		}

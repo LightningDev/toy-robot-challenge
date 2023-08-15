@@ -3,6 +3,7 @@ package position
 import (
 	"fmt"
 
+	"github.com/LightningDev/toy-robot-challenge/internal/errors"
 	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
@@ -21,12 +22,12 @@ func (p *Position) Rotate(degree int) {
 	p.Direction = DegreeToDirection(newDirection)
 }
 
-func (p *Position) Forward(t table.Table) error {
-	return move(p, t, 1)
+func (p *Position) Forward(t table.Table, step int) error {
+	return move(p, t, step)
 }
 
-func (p *Position) Backward(t table.Table) error {
-	return move(p, t, -1) // Backward is just a negative forward
+func (p *Position) Backward(t table.Table, step int) error {
+	return move(p, t, -1*step) // Backward is just a negative forward
 }
 
 func move(p *Position, t table.Table, step int) error {
@@ -45,7 +46,9 @@ func move(p *Position, t table.Table, step int) error {
 	}
 
 	if !t.IsValidPosition(newX, newY) {
-		return fmt.Errorf("invalid position %d,%d,%s", newX, newY, p.Direction)
+		return &errors.InvalidPositionError{
+			Err: fmt.Errorf(p.String()),
+		}
 	}
 
 	p.X = newX

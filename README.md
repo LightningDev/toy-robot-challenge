@@ -8,6 +8,7 @@ This project is an implementation of the Toy Robot simulation, allowing a toy ro
 3. [Implementation](#implementation)
 4. [Getting Started](#getting-started)
 5. [Extra Features](#extra-features)
+6. [Possible Improvements](#possible-improvements)
 
 ## Introduction
 - The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units x 5 units.
@@ -95,9 +96,10 @@ The project not only addresses the foundational requirements of the toy robot ch
 - Provision of user-friendly error messages, coupled with a debug mode for detailed error insights.
 - Capability to introduce additional commands on-the-fly.
 - Flexibility to dynamically set the table size.
+- Can add more CLI command so it can be used for other purposes.
 
 ### Questions
-Given that commands can be case-sensitive and considering the intended audience for this app, it's beneficial to offer a user-friendly interface with permissive input to foster a pleasant experience. 
+Given that commands can be case-sensitive and considering the intended audience for this app, it's beneficial to offer a user-friendly interface with permissive input to foster a pleasant experience.
 
 However, every decision has its trade-offs. From a developer's perspective, it's essential to ensure that all case combinations are comprehended and processed correctly.
 
@@ -290,3 +292,8 @@ By default, the app displays user-friendly error messages. However, by using the
 ```bash
 go run . play -d
 ```
+
+## Possible improvements
+The generator, as it stands, can only generate an extra command. However, it should be improved to generate more than just commands, such as additional objects on the table.
+
+The errors package could introduce more types of errors, not just `ValidationError`. Given the current size of the project, it's not necessary to introduce more types of errors, but it should be considered in the future.
