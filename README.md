@@ -148,11 +148,11 @@ go build -o toy-robot
 
 1. Build image
 ```bash
-@docker build -f ./build/Dockerfile -t toyrobot-app .
+docker build -f ./build/Dockerfile -t toyrobot-app .
 ```
 2. Run container from image
 ```bash
-@docker run -it --rm toyrobot-app play
+docker run -it --rm toyrobot-app play
 ```
 
 #### Makefile
