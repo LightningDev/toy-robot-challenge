@@ -316,6 +316,17 @@ By default, the app displays user-friendly error messages. However, by using the
 go run . play -d
 ```
 
+### Path finding
+The robot are able to attack the specific location with command `ATTACK`. It will output all the step that robot need to go to reach the location. If the location is invalid due to obtacle or out of the table, it will print `invalid position` or if there are no path it will print `no path found to attack`.
+
+To test the command so you can get the journey of the robot to the target.
+
+`go run . play --width 10 --height 10 -f ./path_finder.txt`
+
+This will simulate the journey robot can go to position you want.
+
+The idea behind the algorithm is `A* Search algorithm` to find the heuristic cost to the position you want, skip it if it's an obstacle, otherwise move on to keep calculate til you reach the target.
+
 ## Possible Improvements
 The generator, as it stands, can only generate an extra command. However, it should be improved to generate more than just commands, such as additional objects on the table.
 
