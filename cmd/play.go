@@ -14,6 +14,7 @@ import (
 
 	"github.com/LightningDev/toy-robot-challenge/internal/errors"
 	"github.com/LightningDev/toy-robot-challenge/internal/parser"
+	"github.com/LightningDev/toy-robot-challenge/pkg/obstacle"
 	"github.com/LightningDev/toy-robot-challenge/pkg/robot"
 	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 	"github.com/spf13/cobra"
@@ -22,7 +23,7 @@ import (
 // File name
 var filename string
 
-// Table size
+// Table size and number of obstacles
 var width, height int
 
 // playCmd represents the play command
@@ -38,6 +39,7 @@ Available commands:
 - LEFT: rotate the robot 90 degrees in the specified direction without changing the position of the robot
 - RIGHT: rotate the robot 90 degrees in the specified direction without changing the position of the robot
 - REPORT: announce the X, Y, and orientation of the robot on the table
+- OBSTACLE X,Y: place the obstacle on the table at position x and y
 `,
 	Run: inputCommand,
 }
@@ -45,7 +47,7 @@ Available commands:
 // Allow user to input command from the console
 func inputCommand(cmd *cobra.Command, args []string) {
 	robot := &robot.Robot{}
-	board := table.New(width, height)
+	board := table.New(width, height, []obstacle.Obstacle{})
 
 	var reader *bufio.Reader
 
@@ -97,7 +99,7 @@ func inputCommand(cmd *cobra.Command, args []string) {
 			continue
 		}
 
-		err = robot.Do(command, *board)
+		err = robot.Do(command, board)
 		if err != nil {
 			errors.HandleError(err)
 			continue

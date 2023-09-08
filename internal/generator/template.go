@@ -18,7 +18,7 @@ func New{{ totitle .CmdName }}Command(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c {{ totitle .CmdName }}Command) Execute(r *robot.Robot, t table.Table) error {
+func (c {{ totitle .CmdName }}Command) Execute(r *robot.Robot, t *table.Table) error {
 	// TODO: Implement {{ totitle .CmdName }}Command Logic Here
 	return nil
 }
@@ -56,14 +56,14 @@ func TestNew{{ totitle .CmdName }}Command(t *testing.T) {
 }
 
 func TestExecute{{ totitle .CmdName }}Command(t *testing.T) {
-	board := table.New(5, 5)
+	board := table.New(5, 5, []obstacle.Obstacle{})
 	r := &robot.Robot{}
 
 	cmd := {{ totitle .CmdName }}Command{
 		Name: "{{ toupper .CmdName }}",
 	}
 
-	err := cmd.Execute(r, *board)
+	err := cmd.Execute(r, board)
 	if err != nil {
 		t.Fatalf("Expected no error but got: %v", err)
 	}

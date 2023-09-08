@@ -5,9 +5,11 @@ import (
 )
 
 var CommandList = map[string]func([]string) (robot.Command, error){
-	"PLACE":  NewPlaceCommand,
+	"PLACE": NewPlaceCommand,
 	"REPORT": NewReportCommand,
-	"MOVE":   NewMoveCommand,
-	"LEFT":   NewLeftCommand,
-	"RIGHT":  NewRightCommand,
+	"MOVE": NewMoveCommand,
+	"LEFT": NewLeftCommand,
+	"RIGHT": NewRightCommand,
+	"OBSTACLE": NewObstacleCommand,
+	"ATTACK": NewAttackCommand,
 }

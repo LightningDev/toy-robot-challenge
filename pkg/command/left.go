@@ -15,7 +15,7 @@ func NewLeftCommand(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c LeftCommand) Execute(r *robot.Robot, t table.Table) error {
+func (c LeftCommand) Execute(r *robot.Robot, t *table.Table) error {
 	r.Position.Rotate(-90) // Clockwise rotation
 
 	return nil

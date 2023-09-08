@@ -3,10 +3,12 @@ package table
 import (
 	"strconv"
 	"testing"
+
+	"github.com/LightningDev/toy-robot-challenge/pkg/obstacle"
 )
 
 func TestIsValidPosition(t *testing.T) {
-	board := New(5, 5)
+	board := New(5, 5, []obstacle.Obstacle{})
 
 	tests := []struct {
 		x, y     int

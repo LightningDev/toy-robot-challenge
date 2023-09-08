@@ -4,6 +4,8 @@
     "REPORT",
     "MOVE",
     "LEFT",
-    "RIGHT"
+    "RIGHT",
+    "OBSTACLE",
+    "ATTACK"
   ]
 }

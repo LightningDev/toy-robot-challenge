@@ -7,7 +7,7 @@ import (
 
 type Command interface {
 	GetName() string
-	Execute(r *Robot, t table.Table) error
+	Execute(r *Robot, t *table.Table) error
 }
 
 type Robot struct {
@@ -15,6 +15,6 @@ type Robot struct {
 	Active   bool
 }
 
-func (r *Robot) Do(command Command, t table.Table) error {
+func (r *Robot) Do(command Command, t *table.Table) error {
 	return command.Execute(r, t)
 }

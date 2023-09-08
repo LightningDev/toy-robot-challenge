@@ -16,8 +16,8 @@ func NewMoveCommand(args []string) (robot.Command, error) {
 	}, nil
 }
 
-func (c MoveCommand) Execute(r *robot.Robot, t table.Table) error {
-	err := r.Position.Forward(t, 1)
+func (c MoveCommand) Execute(r *robot.Robot, t *table.Table) error {
+	err := r.Position.Forward(*t, 1)
 	if err != nil {
 		return &errors.ValidationError{
 			Command: c.Name,

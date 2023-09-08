@@ -3,10 +3,11 @@ package position
 import (
 	"testing"
 
+	"github.com/LightningDev/toy-robot-challenge/pkg/obstacle"
 	"github.com/LightningDev/toy-robot-challenge/pkg/table"
 )
 
-var board = table.New(5, 5)
+var board = table.New(5, 5, []obstacle.Obstacle{})
 
 func TestRotate(t *testing.T) {
 	tests := []struct {
